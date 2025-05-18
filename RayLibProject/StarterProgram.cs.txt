@@ -1,0 +1,28 @@
+
+using Raylib_cs;
+
+
+// Inicjalizacja okna
+Raylib.InitWindow(600, 400, "Raylib w C# - Pierwszy program");
+Raylib.SetTargetFPS(60);
+
+// Główna pętla gry
+while (!Raylib.WindowShouldClose())
+{
+    // Start rysowania
+    Raylib.BeginDrawing();
+
+    // Czyszczenie ekranu
+    Raylib.ClearBackground(Color.Black);
+
+    // Rysowanie tekstu
+    Raylib.DrawText("Witaj w Raylib z C#", 150, 150, 20, Color.Red);
+
+    // Zakończenie rysowania
+    Raylib.EndDrawing();
+
+
+}
+
+// Zamknięcia okna
+Raylib.CloseWindow();
