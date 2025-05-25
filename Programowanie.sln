@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraRPG", "GraRPG\GraRPG.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RayLibProject", "RayLibProject\RayLibProject.csproj", "{41EDB911-6C8B-4991-81E7-B0FCD9CEDDC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snake", "Snake\Snake.csproj", "{FAC847F8-4EC1-4889-937F-61BF00A65974}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{41EDB911-6C8B-4991-81E7-B0FCD9CEDDC4}.Release|x64.Build.0 = Release|Any CPU
 		{41EDB911-6C8B-4991-81E7-B0FCD9CEDDC4}.Release|x86.ActiveCfg = Release|Any CPU
 		{41EDB911-6C8B-4991-81E7-B0FCD9CEDDC4}.Release|x86.Build.0 = Release|Any CPU
+		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Debug|x64.Build.0 = Debug|Any CPU
+		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Debug|x86.Build.0 = Debug|Any CPU
+		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Release|x64.ActiveCfg = Release|Any CPU
+		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Release|x64.Build.0 = Release|Any CPU
+		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Release|x86.ActiveCfg = Release|Any CPU
+		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
