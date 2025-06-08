@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RayLibProject", "RayLibProj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snake", "Snake\Snake.csproj", "{FAC847F8-4EC1-4889-937F-61BF00A65974}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlappyBird", "FlappyBird\FlappyBird.csproj", "{FD3992F1-3734-4F80-B563-AB1AC844A220}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,18 @@ Global
 		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Release|x64.Build.0 = Release|Any CPU
 		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Release|x86.ActiveCfg = Release|Any CPU
 		{FAC847F8-4EC1-4889-937F-61BF00A65974}.Release|x86.Build.0 = Release|Any CPU
+		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Debug|x64.Build.0 = Debug|Any CPU
+		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Debug|x86.Build.0 = Debug|Any CPU
+		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Release|x64.ActiveCfg = Release|Any CPU
+		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Release|x64.Build.0 = Release|Any CPU
+		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Release|x86.ActiveCfg = Release|Any CPU
+		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
