@@ -1,4 +1,5 @@
 using System.Numerics;
+using Raylib_cs;
 
 public class Bird
 {
@@ -39,10 +40,19 @@ public class Bird
 
     //Todo
     // Stworzyć metode Draw, która rysuje ptaka
+    public void Draw()
+    {
+        Raylib.DrawCircleV(position, SIZE, Color.Yellow);
+    }
     // Stworzyć metodę, która będzie podbijała ptaka
+    public void Flap()
+    {
+        velocity.Y = flapStrength;
+    }
     // Stworzyć metodą, która będzie sprawdzała kolizję z podłożem
-    // Zastanaowić się, jak może wygląd budowa klasy rury, jak rozwiąć problem z wieloma rurami na planszy
-
-    // Przygotować grafikę flappybird'a
+    public bool CheckCollisionWithGround()
+    {
+        return position.Y + SIZE > Constants.WINDOW_HEIGHT;
+    }
 
 }
