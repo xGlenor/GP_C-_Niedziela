@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snake", "Snake\Snake.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlappyBird", "FlappyBird\FlappyBird.csproj", "{FD3992F1-3734-4F80-B563-AB1AC844A220}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZadaniaSamodzielne", "ZadaniaSamodzielne\ZadaniaSamodzielne.csproj", "{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,18 @@ Global
 		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Release|x64.Build.0 = Release|Any CPU
 		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Release|x86.ActiveCfg = Release|Any CPU
 		{FD3992F1-3734-4F80-B563-AB1AC844A220}.Release|x86.Build.0 = Release|Any CPU
+		{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}.Debug|x64.Build.0 = Debug|Any CPU
+		{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}.Debug|x86.Build.0 = Debug|Any CPU
+		{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}.Release|x64.ActiveCfg = Release|Any CPU
+		{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}.Release|x64.Build.0 = Release|Any CPU
+		{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}.Release|x86.ActiveCfg = Release|Any CPU
+		{92EAA823-031F-41A3-BDF8-3B8EF2FFBE5D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

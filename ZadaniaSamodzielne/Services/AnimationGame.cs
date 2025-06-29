@@ -1,19 +1,23 @@
+using System.Numerics;
 using Raylib_cs;
 
 public class AnimationGame
 {
-    int x, y, speedX, speedY;
-    int squareSize;
+    int x, y, speedX, speedY, squareSize;
+    Texture2D dvdLogo;
 
     public void Init()
     {
         Raylib.InitWindow(800, 600, "Odbijący sie kwadrat");
         Raylib.SetTargetFPS(60);
-        squareSize = 50;
-        x = Raylib.GetScreenWidth() / 2 - squareSize / 2;
-        y = Raylib.GetScreenHeight() / 2 - squareSize / 2;
+
+        dvdLogo = Raylib.LoadTexture(@"Assets\dvdLogo.png");
         speedX = 5;
         speedY = 3;
+        squareSize = 40;
+
+        x = Raylib.GetScreenWidth() / 2 - squareSize / 2;
+        y = Raylib.GetScreenHeight() / 2 - squareSize / 2;
     }
 
     public void Play()
@@ -24,7 +28,7 @@ public class AnimationGame
             Update();
             Draw();
         }
-
+        Raylib.UnloadTexture(dvdLogo);
         Raylib.CloseWindow();
     }
 
@@ -49,9 +53,10 @@ public class AnimationGame
     {
         Raylib.BeginDrawing();
 
-        Raylib.ClearBackground(Color.Black);
+        Raylib.ClearBackground(Color.White);
 
-        Raylib.DrawRectangle(x, y, squareSize, squareSize, Color.Green);
+        //Raylib.DrawRectangle(x, y, squareSize, squareSize, Color.Green);
+        Raylib.DrawTextureEx(dvdLogo, new Vector2(x, y), 0f, 0.06f, Color.White);
 
         Raylib.EndDrawing();
 
