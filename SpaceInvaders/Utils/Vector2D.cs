@@ -9,15 +9,15 @@ public struct Vector2D
     }
 
     public static Vector2D operator +(Vector2D a, Vector2D b){
-        return new Vector2d(a.X + b.X, a.Y + b.Y);
+        return new Vector2D(a.X + b.X, a.Y + b.Y);
     }
 
-    public static Vector2D operator -(Vector2D a, Vector2d b){
-        return new Vector2d(a.X - b.X, a.Y - b.Y);
+    public static Vector2D operator -(Vector2D a, Vector2D b){
+        return new Vector2D(a.X - b.X, a.Y - b.Y);
     }
 
     public static Vector2D operator *(Vector2D a, float scalar){
-        return new Vector2d(a.X * scalar, a.Y * scalar);
+        return new Vector2D(a.X * scalar, a.Y * scalar);
     }
 
 }

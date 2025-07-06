@@ -24,5 +24,10 @@ public class Player : GameObject
         var clampedX = Math.Clamp(Position.X, Size.X / 2, Constants.WINDOW_WIDTH - Size.X / 2);
         SetPosition(new Vector2D(clampedX, Position.Y));
     }
-    
+
+    public Bullet Shoot()
+    {
+        return new Bullet(new Vector2D(Position.X, Position.Y - Size.Y / 2), true);
+    }
+
 }
