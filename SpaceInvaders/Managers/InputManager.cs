@@ -13,7 +13,6 @@ public static class InputManager
             player.MoveRight();
         }
         if (Raylib.IsKeyPressed(KeyboardKey.Space))
-
         {
             bullets.Add(player.Shoot());
         }
