@@ -10,6 +10,7 @@ List<Pileczka> pileczki = new List<Pileczka>();
 // Główna pętla gry
 while (!Raylib.WindowShouldClose())
 {
+
     if (Raylib.IsMouseButtonPressed(MouseButton.Left))
     {
         Vector2 pozycja = Raylib.GetMousePosition();
