@@ -1,3 +1,5 @@
+using Raylib_cs;
+
 namespace GraWZycie
 {
     public class Siatka
@@ -7,11 +9,11 @@ namespace GraWZycie
         private const int ZYWA = 1;
         private const int MARTWA = 0;
 
-        public Siatka(int iloscRzedow, int iloscKolumn)
+        public Siatka(int iloscRzedow, int iloscKolumn, int ziarno)
         {
             _tablicaKomorek = new int[iloscRzedow, iloscKolumn];
 
-            Random rand = new Random();
+            Random rand = new Random(ziarno);
 
             for (int i = 0; i < iloscRzedow; i++)
             {
@@ -23,6 +25,19 @@ namespace GraWZycie
                 }
             }
 
+        }
+
+        public Siatka(int[,] tablicaPrzykladowa, int iloscRzedow, int iloscKolumn)
+        {
+            _tablicaKomorek = new int[iloscRzedow, iloscKolumn];
+
+            for (int x = 0; x < tablicaPrzykladowa.GetLength(0); x++)
+            {
+                for (int y = 0; y < tablicaPrzykladowa.GetLength(1); y++)
+                {
+                    _tablicaKomorek[x, y] = tablicaPrzykladowa[x, y];
+                }
+            }
         }
 
         public void ZrobKrok()
@@ -85,21 +100,46 @@ namespace GraWZycie
 
         public void Wydrukuj()
         {
+            string wydrukuj = new string('-', _tablicaKomorek.GetLength(1) * 2) + "\n";
+
             for (int i = 0; i < _tablicaKomorek.GetLength(0); i++)
             {
                 for (int j = 0; j < _tablicaKomorek.GetLength(1); j++)
                 {
                     if (_tablicaKomorek[i, j] == ZYWA)
                     {
-                        Console.Write("O");
+                        wydrukuj += "O";
                     }
                     else
                     {
-                        Console.Write(" ");
+                        wydrukuj += " ";
                     }
-                    Console.Write(" ");
+                    wydrukuj += " ";
                 }
-                Console.WriteLine();
+                wydrukuj += "|\n";
+            }
+            wydrukuj += new string('-', _tablicaKomorek.GetLength(1) * 2);
+
+            Console.WriteLine(wydrukuj);
+        }
+
+        public void Rysuj(int rozmiarKomorki)
+        {
+            for (int x = 0; x < _tablicaKomorek.GetLength(0); x++)
+            {
+                for (int y = 0; y < _tablicaKomorek.GetLength(1); y++)
+                {
+                    Color color = _tablicaKomorek[x, y] == ZYWA ? Color.White : Color.Black;
+
+                    Rectangle rect = new Rectangle(
+                        y * rozmiarKomorki,
+                        x * rozmiarKomorki,
+                        rozmiarKomorki - 1,
+                        rozmiarKomorki - 1
+                    );
+
+                    Raylib.DrawRectangleRec(rect, color);
+                }
             }
         }
 
