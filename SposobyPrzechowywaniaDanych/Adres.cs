@@ -5,7 +5,5 @@ public class Adres
 
     public int MyProperty { get; private set; }
 
-
-
 }
 
