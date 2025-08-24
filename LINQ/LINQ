@@ -1,0 +1,250 @@
+# LINQ - Language Integrated Query w C#
+
+## 📚 Czym jest LINQ?
+
+**LINQ (Language Integrated Query)** to narzędzie w języku C# umożliwiające wykonywanie zapytań na różnych źródłach danych (kolekcje, bazy danych, XML) w sposób zintegrowany z językiem.
+
+## 🎯 Kluczowe zalety LINQ
+
+1. **Czytelność i zwięzłość kodu** - umożliwia pisanie złożonych zapytań w sposób czytelny
+2. **Różnorodne źródła danych** - działa z kolekcjami w pamięci, bazami danych, plikami XML
+3. **Silne typowanie** - błędy wykrywane na etapie kompilacji
+4. **Łatwe filtrowanie, sortowanie i grupowanie** - wbudowane metody
+
+## 🚀 Tworzenie nowego projektu
+
+```bash
+dotnet new console -o lekcjaLinq
+cd lekcjaLinq
+```
+
+## 🔧 Wyrażenia Lambda
+
+Podstawa LINQ - zwięzły sposób definiowania funkcji:
+
+### Składnia:
+```csharp
+(parametry) => wyrażenie
+(parametry) => { instrukcje }
+```
+
+### Przykład:
+```csharp
+// Znak => można czytać jako "return"
+private int zmienna;
+public int GetZmienna() => zmienna;
+```
+
+## 📖 Dwie składnie LINQ
+
+### 1. Składnia Metod (Method Syntax)
+```csharp
+var wynik = kolekcja.Where(x => warunek).ToList();
+```
+
+### 2. Składnia Zapytań (Query Syntax) 
+```csharp
+var wynik = (from x in kolekcja 
+             where warunek 
+             select x).ToList();
+```
+
+**Zalecenie:** Częściej używa się składni metod ze względu na większą elastyczność.
+
+## 💡 Podstawowe operacje LINQ
+
+### Filtrowanie - Where()
+```csharp
+List<int> liczby = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+var parzyste = liczby.Where(n => n % 2 == 0).ToList();
+// Wynik: 2, 4, 6, 8, 10
+```
+
+### Sortowanie - OrderBy(), OrderByDescending()
+```csharp
+List<string> imiona = new List<string> { "Anna", "Wojtek", "Zbysiu", "Agnieszka" };
+var posortowane = imiona.OrderBy(imie => imie).ToList();
+```
+
+### Agregacje - Sum(), Min(), Max(), Average()
+```csharp
+var liczby = new List<int> { 1, 2, 3, 4, 5 };
+var suma = liczby.Sum();
+var min = liczby.Min();
+var max = liczby.Max();
+var srednia = liczby.Average();
+```
+
+### Pierwszy element - FirstOrDefault()
+```csharp
+var najlepszyFilm = filmy
+    .OrderByDescending(f => f.Ocena)
+    .FirstOrDefault();
+```
+**Uwaga:** Zwraca `null` jeśli kolekcja jest pusta lub żaden element nie spełnia warunku.
+
+### Płaskie wyświetlanie - SelectMany()
+```csharp
+var wszyscyAktorzy = filmy
+    .SelectMany(f => f.Aktorzy)
+    .ToList();
+```
+
+### Usuwanie duplikatów - Distinct()
+```csharp
+var unikalni = wszyscyAktorzy.Distinct().ToList();
+```
+
+## 🏗️ Przykład z klasą Student
+
+### Definicja klasy:
+```csharp
+public class Student
+{
+    public string Imie { get; set; }
+    public int Wiek { get; set; }
+    public float Srednia { get; set; }
+}
+```
+
+### Tworzenie danych:
+```csharp
+var studenci = new List<Student>
+{
+    new Student { Imie = "Anna", Wiek = 20, Srednia = 4.65f },
+    new Student { Imie = "Zbysiu", Wiek = 22, Srednia = 5.12f },
+    new Student { Imie = "Marta", Wiek = 19, Srednia = 4.87f },
+    new Student { Imie = "Karolina", Wiek = 23, Srednia = 3.89f }
+};
+```
+
+### Filtrowanie z warunkami:
+```csharp
+// Studenci starsi niż 20 lat
+var starsi = studenci.Where(s => s.Wiek > 20).ToList();
+
+// Wielokrotne warunki (AND)
+var najlepsi = studenci.Where(s => s.Wiek > 20 && s.Srednia > 5).ToList();
+```
+
+### Porównanie składni:
+```csharp
+// Składnia metod
+var wynik1 = studenci.Where(s => s.Wiek > 20 && s.Srednia > 5).ToList();
+
+// Składnia zapytań
+var wynik2 = (from student in studenci
+              where student.Wiek > 20 && student.Srednia > 5
+              select student).ToList();
+```
+
+## 🎬 Projekt z filmami - Kompleksowy przykład
+
+### Klasa Film:
+```csharp
+public class Film
+{
+    public string Tytul { get; set; }
+    public int Rok { get; set; }
+    public string Rezyser { get; set; }
+    public List<string> Aktorzy { get; set; }
+    public double Ocena { get; set; }
+}
+```
+
+### Przykładowe dane:
+```csharp
+var filmy = new List<Film>
+{
+    new Film { Tytul = "Kevin sam w domu", Rok = 2000, Rezyser = "Spielberg",
+               Aktorzy = new List<string> { "Sam", "Bruce" }, Ocena = 8.5 },
+    new Film { Tytul = "Avengers", Rok = 2005, Rezyser = "Kowalski",
+               Aktorzy = new List<string> { "Michael", "Anthony" }, Ocena = 7.2 },
+    new Film { Tytul = "Harry Potter", Rok = 2010, Rezyser = "Mr Jamnik",
+               Aktorzy = new List<string> { "Sam", "Martin" }, Ocena = 9.0 }
+};
+```
+
+### Przykładowe zapytania:
+
+#### Filmy po 2010 roku:
+```csharp
+var filmyPo2010 = filmy
+    .Where(f => f.Rok > 2010)
+    .ToList();
+```
+
+#### Film z najwyższą oceną:
+```csharp
+var najlepszyFilm = filmy
+    .OrderByDescending(f => f.Ocena)
+    .FirstOrDefault();
+```
+
+#### Wszyscy aktorzy (bez duplikatów):
+```csharp
+var wszyscyAktorzy = filmy
+    .SelectMany(f => f.Aktorzy)
+    .Distinct()
+    .ToList();
+```
+
+#### Filmy konkretnego reżysera:
+```csharp
+var rezyser = "Spielberg";
+var filmyRezysera = filmy
+    .Where(f => f.Rezyser == rezyser)
+    .ToList();
+```
+
+#### Średnia ocena wszystkich filmów:
+```csharp
+var sredniaOcena = filmy.Average(f => f.Ocena);
+```
+
+## 🧪 Zadania do ćwiczeń
+
+### Zadanie 1: Studenci
+Utwórz listę 4 studentów i:
+- Filtruj studentów starszych niż 20 lat
+- Znajdź studentów z oceną powyżej 5.0
+- Połącz oba warunki
+
+### Zadanie 2: Analiza filmów
+Stwórz program analizujący filmy:
+1. Filtruj filmy wydane po określonym roku
+2. Znajdź film z najwyższą oceną  
+3. Wyświetl wszystkich unikalnych aktorów
+4. Pokaż filmy konkretnego reżysera
+5. Oblicz średnią ocen
+
+## 🔑 Najważniejsze metody LINQ
+
+| Metoda | Opis | Przykład |
+|--------|------|----------|
+| `Where()` | Filtrowanie | `lista.Where(x => x > 5)` |
+| `OrderBy()` | Sortowanie rosnące | `lista.OrderBy(x => x.Name)` |
+| `OrderByDescending()` | Sortowanie malejące | `lista.OrderByDescending(x => x.Value)` |
+| `FirstOrDefault()` | Pierwszy element lub null | `lista.FirstOrDefault(x => x.Id == 1)` |
+| `SelectMany()` | Płaskie mapowanie kolekcji | `lista.SelectMany(x => x.Items)` |
+| `Distinct()` | Usuwanie duplikatów | `lista.Distinct()` |
+| `Sum()` | Suma | `liczby.Sum()` |
+| `Average()` | Średnia | `liczby.Average()` |
+| `Min()/Max()` | Minimum/Maximum | `liczby.Min()` / `liczby.Max()` |
+| `ToList()` | Konwersja do listy | `zapytanie.ToList()` |
+
+## 📋 Podsumowanie - Pytania kontrolne
+
+1. **Co to jest LINQ?**
+   - Language Integrated Query - narzędzie do zapytań zintegrowane z C#
+
+2. **Czym różni się składnia metod od składni zapytań?**
+   - Składnia metod: `kolekcja.Where(x => warunek)`
+   - Składnia zapytań: `from x in kolekcja where warunek select x`
+
+3. **Do czego służy FirstOrDefault()?**
+   - Zwraca pierwszy element spełniający warunek lub wartość domyślną (null)
+
+4. **Do czego służy Distinct()?**
+   - Usuwa duplikaty z kolekcji
+

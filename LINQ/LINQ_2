@@ -1,0 +1,247 @@
+# Alternatywy dla wyrażeń lambda w metodach LINQ
+
+## 🎯 Co można przekazać do Where() i innych metod LINQ?
+
+Metody LINQ przyjmują **delegaty** - czyli wskaźniki na funkcje. Wyrażenia lambda to tylko jeden ze sposobów ich tworzenia.
+
+## 1. 📝 Wyrażenia lambda (najczęściej używane)
+
+```csharp
+var parzyste = liczby.Where(x => x % 2 == 0).ToList();
+```
+
+## 2. 🔧 Metody nazwane (Named Methods)
+
+### Definicja metody statycznej:
+```csharp
+public static bool CzyParzysta(int liczba)
+{
+    return liczba % 2 == 0;
+}
+
+// Użycie w LINQ
+var parzyste = liczby.Where(CzyParzysta).ToList();
+```
+
+### Metody instancyjne:
+```csharp
+public class NumberChecker
+{
+    public bool IsEven(int number)
+    {
+        return number % 2 == 0;
+    }
+    
+    public bool IsGreaterThanTen(int number)
+    {
+        return number > 10;
+    }
+}
+
+// Użycie
+var checker = new NumberChecker();
+var parzyste = liczby.Where(checker.IsEven).ToList();
+var duze = liczby.Where(checker.IsGreaterThanTen).ToList();
+```
+
+## 3. ⚡ Metody anonimowe (Anonymous Methods)
+
+```csharp
+var parzyste = liczby.Where(delegate(int x) 
+{ 
+    return x % 2 == 0; 
+}).ToList();
+```
+
+## 4. 🏗️ Delegaty zdefiniowane wcześniej
+
+### Używając wbudowanych delegatów:
+```csharp
+// Func<TInput, TOutput> - delegat zwracający wartość
+Func<int, bool> sprawdzParzysta = x => x % 2 == 0;
+var parzyste = liczby.Where(sprawdzParzysta).ToList();
+
+// Predicate<T> - delegat zwracający bool
+Predicate<int> czyWiekszeNiz5 = x => x > 5;
+// Uwaga: Predicate nie działa bezpośrednio z LINQ, trzeba go przekonwertować
+var duze = liczby.Where(x => czyWiekszeNiz5(x)).ToList();
+```
+
+### Własne delegaty:
+```csharp
+// Definicja własnego delegata
+public delegate bool NumberValidator(int number);
+
+public static bool IsPositive(int number) => number > 0;
+public static bool IsNegative(int number) => number < 0;
+
+// Użycie
+NumberValidator validator = IsPositive;
+var dodatnie = liczby.Where(x => validator(x)).ToList();
+```
+
+## 5. 🎨 Przykłady praktyczne z różnymi podejściami
+
+```csharp
+public class Student
+{
+    public string Imie { get; set; }
+    public int Wiek { get; set; }
+    public double Srednia { get; set; }
+}
+
+public class StudentFilters
+{
+    // Metody statyczne
+    public static bool JestPelnoletni(Student student)
+    {
+        return student.Wiek >= 18;
+    }
+    
+    public static bool MaDozwolona(Student student)
+    {
+        return student.Srednia >= 3.0;
+    }
+    
+    // Metoda instancyjna z parametrem
+    private int minimalnyWiek;
+    
+    public StudentFilters(int minWiek)
+    {
+        minimalnyWiek = minWiek;
+    }
+    
+    public bool CzyStarszyNiz(Student student)
+    {
+        return student.Wiek > minimalnyWiek;
+    }
+}
+
+// Użycie różnych podejść:
+var studenci = new List<Student>
+{
+    new Student { Imie = "Anna", Wiek = 20, Srednia = 4.5 },
+    new Student { Imie = "Jan", Wiek = 17, Srednia = 3.2 },
+    new Student { Imie = "Maria", Wiek = 22, Srednia = 2.8 }
+};
+
+// 1. Lambda
+var pelnoletni1 = studenci.Where(s => s.Wiek >= 18).ToList();
+
+// 2. Metoda nazwana
+var pelnoletni2 = studenci.Where(StudentFilters.JestPelnoletni).ToList();
+
+// 3. Metoda instancyjna
+var filter = new StudentFilters(19);
+var starsi = studenci.Where(filter.CzyStarszyNiz).ToList();
+
+// 4. Delegat z metodą
+Func<Student, bool> sprawdzSrednia = StudentFilters.MaDozwolona;
+var zDozwolona = studenci.Where(sprawdzSrednia).ToList();
+
+// 5. Metoda anonimowa
+var dobrzy = studenci.Where(delegate(Student s) 
+{ 
+    return s.Srednia > 4.0 && s.Wiek >= 18; 
+}).ToList();
+```
+
+## 6. 🔄 Łączenie kryteriów - kombinacje
+
+```csharp
+public static class ValidationRules
+{
+    public static bool IsAdult(Student s) => s.Wiek >= 18;
+    public static bool HasGoodGrades(Student s) => s.Srednia >= 4.0;
+    public static bool HasExcellentGrades(Student s) => s.Srednia >= 5.0;
+}
+
+// Można łączyć różne podejścia
+var wybrani = studenci
+    .Where(ValidationRules.IsAdult)           // Metoda nazwana
+    .Where(s => s.Imie.StartsWith("A"))       // Lambda
+    .Where(ValidationRules.HasGoodGrades)     // Metoda nazwana
+    .ToList();
+```
+
+## 7. 🚀 Zaawansowane: Expression Trees
+
+```csharp
+using System.Linq.Expressions;
+
+// Dla Entity Framework - wyrażenia można analizować
+Expression<Func<Student, bool>> warunek = s => s.Wiek > 18;
+var pelnoletni = studenci.Where(warunek.Compile()).ToList();
+
+// Można budować wyrażenia dynamicznie
+var parameter = Expression.Parameter(typeof(Student), "s");
+var property = Expression.Property(parameter, "Wiek");
+var constant = Expression.Constant(18);
+var comparison = Expression.GreaterThan(property, constant);
+var lambda = Expression.Lambda<Func<Student, bool>>(comparison, parameter);
+
+var wynik = studenci.Where(lambda.Compile()).ToList();
+```
+
+## 8. 📊 Porównanie podejść
+
+| Podejście | Zalety | Wady | Kiedy używać |
+|-----------|--------|------|-------------|
+| **Lambda** | Zwięzłe, czytelne | Trudne do ponownego użycia | Proste, jednorazowe warunki |
+| **Metody nazwane** | Wielokrotnego użytku, testowalne | Więcej kodu | Złożona logika, testy jednostkowe |
+| **Delegaty** | Elastyczne, można zmieniać w runtime | Trudniejsze w debugowaniu | Konfigurowalność, strategia |
+| **Metody anonimowe** | Lokalne, bez deklaracji | Przestarzałe (zastąpione przez lambda) | Raczej nie używać - legacy |
+
+## 9. 💡 Praktyczne wskazówki
+
+### Kiedy używać metod nazwanych:
+```csharp
+// ✅ Dobrze - logika biznesowa w osobnej metodzie
+public static bool SpelniaKryteriaStypendium(Student student)
+{
+    return student.Wiek >= 18 && 
+           student.Srednia >= 4.5 && 
+           student.Wiek <= 26;
+}
+
+var stypendysci = studenci.Where(SpelniaKryteriaStypendium).ToList();
+
+// ❌ Źle - złożona lambda
+var stypendysci2 = studenci.Where(s => s.Wiek >= 18 && s.Srednia >= 4.5 && s.Wiek <= 26).ToList();
+```
+
+### Parametryzowane filtry:
+```csharp
+public class StudentService
+{
+    public static Func<Student, bool> CreateAgeFilter(int minAge, int maxAge)
+    {
+        return student => student.Wiek >= minAge && student.Wiek <= maxAge;
+    }
+    
+    public static Func<Student, bool> CreateGradeFilter(double minGrade)
+    {
+        return student => student.Srednia >= minGrade;
+    }
+}
+
+// Użycie
+var ageFilter = StudentService.CreateAgeFilter(18, 25);
+var gradeFilter = StudentService.CreateGradeFilter(4.0);
+
+var filtered = studenci
+    .Where(ageFilter)
+    .Where(gradeFilter)
+    .ToList();
+```
+
+## 🎯 Podsumowanie
+
+Wyrażenia lambda to najwygodniejszy sposób, ale masz wiele alternatyw:
+
+1. **Lambda** - dla prostych, jednorazowych warunków
+2. **Metody nazwane** - dla złożonej logiki biznesowej
+3. **Delegaty** - dla elastyczności i konfigurowalności  
+4. **Metody anonimowe** - legacy, lepiej używać lambda
+
+Wybieraj podejście w zależności od potrzeb: prostoty, czytelności, testowalności i możliwości ponownego użycia!
